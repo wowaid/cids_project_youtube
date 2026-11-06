@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: youtube_postgres
+    environment:
+      POSTGRES_DB: youtube
+      POSTGRES_USER: youtube
+      POSTGRES_PASSWORD: youtube
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  loader:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: youtube_loader
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: youtube
+      DB_USER: youtube
+      DB_PASSWORD: youtube
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
