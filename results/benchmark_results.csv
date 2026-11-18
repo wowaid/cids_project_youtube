@@ -1,0 +1,4 @@
+data_size,rows,avg_load_time_seconds,avg_processing_time_seconds,avg_total_time_seconds,avg_table_size_mb
+25%,50000,5.0913,0.0864,5.1776,10.63
+50%,100000,9.5502,0.1731,9.7234,21.23
+100%,200000,18.7133,0.3596,19.0729,42.43

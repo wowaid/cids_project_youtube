@@ -51,7 +51,7 @@ def download_dataset():
 
 
 def load_data(engine, csv_path):
-    """Load CSV data into PostgreSQL."""
+    """Load videos and categories into PostgreSQL."""
     print("Reading CSV...")
 
     df = pd.read_csv(csv_path)
@@ -59,7 +59,7 @@ def load_data(engine, csv_path):
     print(f"Rows: {len(df):,}")
     print(f"Columns: {len(df.columns)}")
 
-    print("Loading data into PostgreSQL...")
+    print("Loading videos into PostgreSQL...")
 
     df.to_sql(
         "videos",
@@ -70,6 +70,44 @@ def load_data(engine, csv_path):
         chunksize=5000
     )
 
+    print("Videos loaded successfully!")
+
+    print("Creating categories table...")
+
+    categories = pd.DataFrame({
+        "category_id": sorted(df["category_id"].dropna().unique())
+    })
+
+    category_names = {
+        1: "Film & Animation",
+        2: "Autos & Vehicles",
+        10: "Music",
+        15: "Pets & Animals",
+        17: "Sports",
+        19: "Travel & Events",
+        20: "Gaming",
+        22: "People & Blogs",
+        23: "Comedy",
+        24: "Entertainment",
+        25: "News & Politics",
+        26: "Howto & Style",
+        27: "Education",
+        28: "Science & Technology",
+        29: "Nonprofits & Activism",
+        30: "Movies",
+        43: "Shows",
+    }
+
+    categories["category_name"] = categories["category_id"].map(category_names)
+
+    categories.to_sql(
+        "categories",
+        engine,
+        if_exists="replace",
+        index=False
+    )
+
+    print(f"Categories loaded: {len(categories)}")
     print("Data loaded successfully!")
 
 

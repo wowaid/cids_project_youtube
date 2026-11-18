@@ -10,6 +10,11 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U youtube -d youtube"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   loader:
     build:
@@ -23,7 +28,25 @@ services:
       DB_USER: youtube
       DB_PASSWORD: youtube
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
+
+  processor:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.processor
+    container_name: youtube_processor
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: youtube
+      DB_USER: youtube
+      DB_PASSWORD: youtube
+    depends_on:
+      loader:
+        condition: service_completed_successfully
+    volumes:
+      - ./results:/app/results
 
 volumes:
   postgres_data:
