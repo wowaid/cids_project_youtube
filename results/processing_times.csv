@@ -1,7 +1,7 @@
 query,processing_time_seconds
-01_country_uniqueness.sql,0.8737141250167042
-02_music_gaming.sql,0.0498138329712674
-03_drama_score.sql,0.12257508299080655
-04_longest_trending.sql,0.42744862503604963
-05_time_to_trend.sql,0.4069610830047168
-06_shouty_titles.sql,7.299931587011088
+01_country_uniqueness.sql,1.4878492089919746
+02_music_gaming.sql,0.09101887501310557
+03_drama_score.sql,0.13673404202563688
+04_longest_trending.sql,0.44735470903106034
+05_time_to_trend.sql,0.4165677920100279
+06_shouty_titles.sql,7.26461075298721
