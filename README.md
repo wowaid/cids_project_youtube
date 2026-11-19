@@ -314,6 +314,15 @@ cids_project_youtube/
 
 ## 9. Measurements
 
+### Test Environment
+
+The measurements were performed on:
+
+- **Processor:** Apple M2
+- **RAM:** 8 GB
+- **Operating System:** macOS
+
+
 Performance was measured using three dataset sizes:
 
 - **25%** — 50,000 rows
